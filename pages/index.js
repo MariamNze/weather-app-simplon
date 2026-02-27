@@ -22,6 +22,8 @@ export const App = () => {
       setWeatherData({ ...data });
     };
     getData();
+    const interval = setInterval(getData, 3600000);
+    return () => clearInterval(interval);
   }, []);
 
   const changeSystem = () =>
