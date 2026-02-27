@@ -1,4 +1,5 @@
 import cityConfig from "../../config/city.json";
+import { getWeatherDescription, getWeatherIcon } from "../../mappers/weatherInfo";
 
 export default async function handler(req, res) {
   const { name, country, latitude, longitude } = cityConfig;
@@ -9,17 +10,17 @@ export default async function handler(req, res) {
     );
     const data = await getWeatherData.json();
 
+    const currentTime = Math.floor(new Date(data.current.time).getTime() / 1000);
+    const sunrise = Math.floor(new Date(data.daily.sunrise[0]).getTime() / 1000);
+    const sunset = Math.floor(new Date(data.daily.sunset[0]).getTime() / 1000);
+
     const weatherData = {
     name,
-    sys: {
-      country,
-      sunrise: Math.floor(new Date(data.daily.sunrise[0]).getTime() / 1000),
-      sunset: Math.floor(new Date(data.daily.sunset[0]).getTime() / 1000),
-    },
+    sys: { country, sunrise, sunset },
     weather: [{
-      description: data.current.weather_code,
-      icon: data.current.weather_code,
-    }, ],
+      description: getWeatherDescription(data.current.weather_code),
+      icon: getWeatherIcon(data.current.weather_code, currentTime, sunrise, sunset),
+    }],
     main: {
       temp: data.current.temperature_2m,
       feels_like: data.current.apparent_temperature,
@@ -30,7 +31,7 @@ export default async function handler(req, res) {
       deg: data.current.wind_direction_10m,
     },
     visibility: data.current.visibility,
-    dt: Math.floor(new Date(data.current.time).getTime() / 1000),
+    dt: currentTime,
     timezone: data.utc_offset_seconds,
     };
 
