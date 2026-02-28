@@ -1,12 +1,22 @@
 # Weather App
 
-Check the current weather on any city on the planet. Switch between metric and imperial units.
+This project displays the current weather for a pre-configured city. Data is fetched from the **Open Meteo API**.
 
-![Alt img](https://images.ctfassets.net/zlsyc9paq6sa/3uBrJ07WSM40FpolgjInHY/7d886cb4187b52194bf9b63c183a1d3a/1627637330_x.gif)
+This project is an adaptation of an existing weather app ([original repo](https://github.com/madzadev/weather-app)) and was developed as part of my application process for the **Concepteur·trice Développeur·se d’Application – spécialité Éco-conception** training at **Simplon**.
+
+![Weather App Screenshot](./public/screenshot-weather-app.png)
+
+## Changes Made Compared to the Original App
+
+1. Replaced the **OpenWeatherMap API** with **Open Meteo API**.
+2. Removed the city search functionality. The city is now **pre-configured** via `config/city.json`.
+3. Added **automatic hourly refresh** of weather data.
+4. Updated the data mapping to handle **Open Meteo weather codes**.
+5. Weather icons and descriptions now adapt to **day/night** based on sunrise and sunset times.
 
 ## Features
 
-1. User's ability to search cities
+1. Pre-configured city weather
 
 2. Current local time and date
 
@@ -16,32 +26,41 @@ Check the current weather on any city on the planet. Switch between metric and i
 
 5. Sunrise and sunset times
 
-6. Metric vs Imperial system
+6. Data refresh every hour
 
-7. Error handling and loading info
+7. Weather condition description
+
+8. Weather icons adapted for day/night
+
+9. Metric vs Imperial system
+
+10. Error handling and loading info
+
+
+## Prerequisites
+> ### Use Node.js v16
+
+Verify Node.js Version
+
+```bash
+node -v
+```
+
+If your version is not v16.x.x:
+```bash
+nvm install 16
+nvm use 16
+```
 
 ## Installation
 
-1. `git clone https://github.com/madzadev/weather-app.git`
+1. `git clone https://github.com/MariamNze/weather-app-simplon.git`
 
-2. `cd weather-app`
+2. `cd weather-app-simplon`
 
 3. `npm install`
 
-4. Log-in to [Openweathermap.com](https://openweathermap.org/)
+4. `npm run dev`
 
-5. Create an API key
-
-6. `cp .env.example .env.local`
-
-7. Paste API key for `OPENWEATHER_API_KEY`
-
-8. `npm run dev`
-
-## Contributions
-
-Any feature requests and pull requests are welcome!
-
-## License
-
-The project is under [MIT license](https://choosealicense.com/licenses/mit/).
+5. Open your browser at http://localhost:3000
+The city for which weather is displayed can be configured in `config/city.json`
